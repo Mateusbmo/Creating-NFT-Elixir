@@ -5,6 +5,13 @@ defmodule OrbitWeb.Router do
     plug :accepts, ["json"]
   end
 
+  scope "/api" do
+    pipe_through :api
+
+    forward  "/graphql", Absinthe.Plug, schema: Orbit.Schema
+    forward  "/graphiql", Absinthe.Plug.GraphiQL, schema: Orbit.Schema
+  end
+
   scope "/api", OrbitWeb do
     pipe_through :api
   end
